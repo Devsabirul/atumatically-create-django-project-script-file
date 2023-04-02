@@ -23,7 +23,7 @@ else:
     os.system("python manage.py startapp core")
     # add Install App in settings.py ------------------------
     fileEdit.replace(project_folder_path+"/"+project_name +
-                     "/"+project_name+"/settings.py", "'django.contrib.staticfiles',", "'django.contrib.staticfiles',\n    'core',")
+                     "/"+project_name+"/settings.py", '"django.contrib.staticfiles",', "'django.contrib.staticfiles',\n    'core',")
     os.chdir(project_folder_path+"/"+project_name)
     os.mkdir('templates')
     os.mkdir('static')
@@ -34,28 +34,22 @@ else:
     # Insert DIRS file
     fileEdit.replace(project_folder_path+"/"+project_name +
                      "/"+project_name+"/settings.py",
-                     "'DIRS': [],", '"DIRS": [os.path.join(BASE_DIR, "templates")],')
+                     '"DIRS": [],', '"DIRS": [os.path.join(BASE_DIR, "templates")],')
 
     # Add Static url root media file
     fileEdit.replace(project_folder_path+"/"+project_name +
                      "/"+project_name+"/settings.py",
-                     "STATIC_URL = '/static/'", "STATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')\nSTATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]\n\n\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'")
+                     'STATIC_URL = "/static/"', "STATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')\nSTATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]\n\n\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'")
     # create urls.py in app folder
     open(project_folder_path+"/"+project_name+"/core/urls.py", 'w')
     # setup app urls.py file
-    url = '''from django.urls import path
-    from .views import *
-    urlpatterns = [
-        path('', home, name="Home"),
-    ]
+    url = '''from django.urls import path\nfrom .views import *\nurlpatterns = [\n   path('', home, name="Home"),\n]
     '''
     fileEdit.add_text(project_folder_path+"/" +
                       project_name+"/core/urls.py", url, 0)
 
     # add views function for home view
-    viewFunction = '''from django.http import HttpResponse\n\n
-    def home(request):
-        return HttpResponse("<div style='text-align:center;margin-top:100px'><h1>The install worked successfully! Congratulations! </h1></div>")
+    viewFunction = '''from django.http import HttpResponse\n\ndef home(request):\n  return HttpResponse("<div style='text-align: center;margin-top: 50px;'><h1>The install worked successfully! Congratulations! </h1></div>")
     '''
     fileEdit.add_text(project_folder_path+"/" +
                       project_name+"/core/views.py", viewFunction, 1)
@@ -76,7 +70,7 @@ else:
 
     fileEdit.replace(project_folder_path+"/"+project_name +
                      "/"+project_name+"/urls.py",
-                     "path('admin/', admin.site.urls),", "path('admin/', admin.site.urls),\n    path('', include('core.urls'))")
+                     'path("admin/", admin.site.urls),', "path('admin/', admin.site.urls),\n    path('', include('core.urls'))")
 
     os.chdir(project_folder_path+"/"+project_name)
     os.system("python manage.py migrate")

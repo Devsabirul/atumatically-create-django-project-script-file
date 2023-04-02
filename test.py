@@ -40,12 +40,8 @@ import os
 # fileEdit.replace('D://Programming//Django//blog//blog//settings.py',
 #                  "'django.contrib.staticfiles',", "'django.contrib.staticfiles',\n    'core',")
 open("D://Programming//Django//blog//core//urls.py", 'w')
-# url = '''from django.urls import path
-# from .views import *
-# urlpatterns = [
-#     path('', home, name="Home"),
-# ]
-# '''
+url = '''from django.urls import path\nfrom .views import *\nurlpatterns = [\n   path('', home, name="Home"),\n]
+'''
 
 # viewFunction = '''from django.http import HttpResponse\n\n
 # def home(request):
