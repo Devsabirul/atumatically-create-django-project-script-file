@@ -23,7 +23,7 @@ else:
     os.system("python manage.py startapp core")
     # add Install App in settings.py ------------------------
     fileEdit.replace(project_folder_path+"/"+project_name +
-                     "/"+project_name+"/settings.py", "'django.contrib.staticfiles',\n    'core',")
+                     "/"+project_name+"/settings.py", "'django.contrib.staticfiles',", "'django.contrib.staticfiles',\n    'core',")
     os.chdir(project_folder_path+"/"+project_name)
     os.mkdir('templates')
     os.mkdir('static')
