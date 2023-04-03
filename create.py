@@ -21,9 +21,10 @@ else:
     os.system("django-admin startproject "+project_name+" ./")
     os.chdir(project_folder_path+"/"+project_name)
     os.system("python manage.py startapp core")
-    # add Install App in settings.py ------------------------
-    fileEdit.replace(project_folder_path+"/"+project_name +
-                     "/"+project_name+"/settings.py", '"django.contrib.staticfiles",', "'django.contrib.staticfiles',\n    'core',")
+    # add Install App and Insert DIRS file Add Static url root media file in settings.py
+    fileEdit.checkSettingsFile(project_folder_path+"/"+project_name +
+                               "/"+project_name+"/settings.py")
+
     os.chdir(project_folder_path+"/"+project_name)
     os.mkdir('templates')
     os.mkdir('static')
@@ -31,15 +32,6 @@ else:
     fileEdit.add_text(project_folder_path+"/"+project_name +
                       "/"+project_name+"/settings.py", 'import os', 13)
 
-    # Insert DIRS file
-    fileEdit.replace(project_folder_path+"/"+project_name +
-                     "/"+project_name+"/settings.py",
-                     '"DIRS": [],', '"DIRS": [os.path.join(BASE_DIR, "templates")],')
-
-    # Add Static url root media file
-    fileEdit.replace(project_folder_path+"/"+project_name +
-                     "/"+project_name+"/settings.py",
-                     'STATIC_URL = "/static/"', "STATIC_URL = '/static/'\nSTATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')\nSTATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]\n\n\nMEDIA_ROOT = os.path.join(BASE_DIR, 'media')\nMEDIA_URL = '/media/'")
     # create urls.py in app folder
     open(project_folder_path+"/"+project_name+"/core/urls.py", 'w')
     # setup app urls.py file
@@ -68,9 +60,8 @@ else:
                      "/"+project_name+"/urls.py",
                      'from django.urls import path', 'from django.urls import path,include')
 
-    fileEdit.replace(project_folder_path+"/"+project_name +
-                     "/"+project_name+"/urls.py",
-                     'path("admin/", admin.site.urls),', "path('admin/', admin.site.urls),\n    path('', include('core.urls'))")
+    fileEdit.checkSettingsFile(project_folder_path+"/"+project_name +
+                               "/"+project_name+"/urls.py")
 
     os.chdir(project_folder_path+"/"+project_name)
     os.system("python manage.py migrate")

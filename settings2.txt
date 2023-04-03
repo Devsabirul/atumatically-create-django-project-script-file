@@ -1,0 +1,5 @@
+============== Another settings.py and urls ======================
+"django.contrib.staticfiles"
+"DIRS": [],
+STATIC_URL = "static/"
+path("admin/", admin.site.urls),

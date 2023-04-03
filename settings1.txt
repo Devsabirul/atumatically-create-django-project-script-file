@@ -1,0 +1,4 @@
+'django.contrib.staticfiles',
+'DIRS': [],
+STATIC_URL = '/static/'
+path('admin/', admin.site.urls),
